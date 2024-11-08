@@ -8,6 +8,7 @@ use App\Jobs\DeleteTask;
 use App\Jobs\EditTask;
 // use App\Http\Requests\UserRequests;
 use App\Models\Task;
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -50,8 +51,12 @@ class TaskController extends Controller
         return view('task.create');
     }
     public function store(Request $request){
-        createTaskJob::dispatch($request->title , $request->description);
-        return redirect()->route('tasks');
+        try{
+            createTaskJob::dispatch($request->title , $request->description);
+        }catch(Exception   $e){
+            return "error ".$e->getMessage();
+        }
+        // return redirect()->route('tasks');
     }
 
 

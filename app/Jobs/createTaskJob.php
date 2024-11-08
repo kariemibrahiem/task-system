@@ -26,6 +26,7 @@ class createTaskJob implements ShouldQueue
     public function handle()
     {
         // Simulate creating a new task in the database
+        return "the job";
         Task::create([
             'title' => $this->title,
             'description' => $this->description,
